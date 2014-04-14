@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="topup">
+
+			<h:panelGrid columns="3" columnClasses="titleCell">
+				<h:outputLabel for="person" value="Person:" />
+				<h:selectOneMenu id="person" value="#{accountTopupController.personId}">
+					<f:selectItem itemLabel="Choose person" itemValue="" />
+					<f:selectItems value="#{allPersons}" var="person" itemValue="#{person.id}" itemLabel="#{person.name}" />
+					<p:ajax update="account" listener="#{accountTopupController.personChangedListener}" />
+				</h:selectOneMenu>
+				<h:message for="person" errorClass="invalid" />
+
+				<h:outputLabel for="account" value="Account:" />
+				<h:selectOneMenu id="account" value="#{accountTopupController.accountId}">
+					<f:selectItems value="#{accountTopupController.accounts}" var="account" itemValue="#{account.id}"
+						itemLabel="#{account.name}" />
+				</h:selectOneMenu>
+				<h:message for="account" errorClass="invalid" />
+
+				<h:outputLabel for="amount" value="Amount:" />
+				<h:inputText id="amount" value="#{accountTopupController.amount}" required="true" label="Amount">
+					<f:validateLongRange maximum="1000" minimum="1" />
+				</h:inputText>
+				<h:message for="amount" errorClass="invalid" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1">
+				<h:commandButton id="topup" action="#{accountTopupController.topup()}" value="Topup" styleClass="register" />
+				<h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true" />
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
