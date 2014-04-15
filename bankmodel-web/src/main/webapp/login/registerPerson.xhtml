@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h3>Member Registration</h3>
+		<h:form id="reg">
+		<h:panelGrid columns="3" columnClasses="titleCell">
+            <h:outputLabel for="name" value="Name:"/>
+            <h:inputText id="name" value="#{personController.newPerson.name}" />
+            <h:message for="name" errorClass="invalid"/>
+            
+            <h:outputLabel for="pass" value="Password:"/>
+            <h:inputSecret id="pass" value="#{personController.password}" />
+            <h:message for="pass" errorClass="invalid"/>
+
+            <h:outputLabel for="email" value="Email:"/>
+            <h:inputText id="email" value="#{personController.newPerson.email}"/>
+            <h:message for="email" errorClass="invalid"/>
+         </h:panelGrid>
+         
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{personController.register}" value="Register" styleClass="register"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>
+            </h:panelGrid>
+         </p>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
